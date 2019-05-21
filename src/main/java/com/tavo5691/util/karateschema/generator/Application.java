@@ -23,8 +23,8 @@ public class Application {
 		scanner.close();
 		
 		/*
-		 * Test input JSONs in order of complexity. For testing uncomment one line and
-		 * comment out the lines above
+		 * Test input JSONs in order of complexity.
+		 * For testing uncomment one line and comment out the lines above
 		 */
 		//String input = "{ \"meta\": { \"method\": true, \"operation\": \"v1/pom/loans/holding/sarasa\", \"paging\": null, \"coso\": 1337655600000 } }";
 		//String input = "{ \"meta\": { \"method\": \"PUT\", \"operation\": \"v1/pom/loans/holding/sarasa\", \"paging\": null }, \"data\": { \"loan_contract_account_identification\": { \"backend_id\": null, \"bank_country\": \"AR\", \"bank_key\": \"90000007\", \"account_number\": \"sarasa\" }, \"installment_number\": 0, \"due_date\": null }, \"errors\": [] }";
@@ -37,7 +37,7 @@ public class Application {
 		StringBuilder sb = new StringBuilder();
 		
 		System.out.println("\nGenerating schemas...\n");
-		sb.append("microserviceResponseSchema = { ");
+		sb.append("* def microserviceResponseSchema = { ");
 		
 		Set<String> inputKeys = inputJson.keySet();
 		Iterator<String> inputIterator = inputKeys.iterator();
@@ -50,22 +50,23 @@ public class Application {
 				JSONObject currentObject = inputJson.getJSONObject(inputKey);
 				String schema = getSchema(currentObject);
 				
-				sb.append(inputKey + ": '#(" + inputSchemaName + ")'");
-				schemaList.add(0, inputSchemaName + " = " + schema);
+				sb.append(String.format(ConstantValues.Key.KEY, inputKey));
+				sb.append(String.format(ConstantValues.Value.MATCH_OBJECT_FORMAT, inputSchemaName));
+				schemaList.add(0, String.format(ConstantValues.Value.SCHEMA_FORMAT, inputSchemaName, schema));
 			} else if (inputJson.get(inputKey) instanceof JSONArray) {
 				JSONArray currentArray = inputJson.getJSONArray(inputKey);
+				sb.append(String.format(ConstantValues.Key.KEY, inputKey));
 				
 				if (!currentArray.isEmpty()) {
 					JSONObject firstObject = currentArray.getJSONObject(0);
 					String schema = getSchema(firstObject);
 					
-					sb.append(inputKey + ": '#[] (" + inputSchemaName + ")'");
-					schemaList.add(0, inputSchemaName + " = " + schema);
+					sb.append(String.format(ConstantValues.Value.MATCH_ARRAY_FORMAT, inputSchemaName));
+					schemaList.add(0, String.format(ConstantValues.Value.SCHEMA_FORMAT, inputSchemaName, schema));
 				} else {
-					sb.append(inputKey + ": []");
+					sb.append(ConstantValues.Value.MATCH_EMPTY_ARRAY);
 				}
 			}
-			
 			
 			if (inputIterator.hasNext()) {
 				sb.append(", ");
@@ -95,25 +96,24 @@ public class Application {
 		
 		while (iterator.hasNext()) {
 			String key = iterator.next();
-			sb.append(key);
-			sb.append(": ");
+			sb.append(String.format(ConstantValues.Key.KEY, key));
 			
 			Object value = object.get(key);
 			
 			if (value instanceof String) {
-				sb.append("'#string'");
+				sb.append(ConstantValues.Value.MATCH_STRING);
 			} else if (value.equals(null)) {
-				sb.append("'#present'");
+				sb.append(ConstantValues.Value.MATCH_PRESENT);
 			} else if (value instanceof Integer || value instanceof Long || value instanceof Double) {
-				sb.append("'#number'");
+				sb.append(ConstantValues.Value.MATCH_NUMBER);
 			} else if (value instanceof Boolean) {
-				sb.append("'#boolean'");
+				sb.append(ConstantValues.Value.MATCH_BOOLEAN);
 			} else if (value instanceof JSONObject) {
 				String schemaName = formatSchemaName(key);
 				String innerObjectSchema = getSchema((JSONObject) value);
 				
-				sb.append("'#(" + schemaName + ")'");
-				schemaList.add(schemaName + " = " + innerObjectSchema);
+				sb.append(String.format(ConstantValues.Value.MATCH_OBJECT_FORMAT, schemaName));
+				schemaList.add(String.format(ConstantValues.Value.SCHEMA_FORMAT, schemaName, innerObjectSchema));
 			} else if (value instanceof JSONArray) {
 				String schemaName = formatSchemaName(key);
 				JSONArray currentArray = (JSONArray) value;
@@ -122,13 +122,13 @@ public class Application {
 					JSONObject firstObject = currentArray.getJSONObject(0);
 					String schema = getSchema(firstObject);
 					
-					sb.append("'#[] (" + schemaName + ")'");
-					schemaList.add(0, schemaName + " = " + schema);
+					sb.append(String.format(ConstantValues.Value.MATCH_ARRAY_FORMAT, schemaName));
+					schemaList.add(0, String.format(ConstantValues.Value.SCHEMA_FORMAT, schemaName, schema));
 				} else {
-					sb.append("[]");
+					sb.append(ConstantValues.Value.MATCH_EMPTY_ARRAY);
 				}
 			} else {
-				System.out.println("WARNING: Value not supported for key: " + key);
+				System.out.println(String.format(ConstantValues.Message.WARNING_MESSAGE, key));
 			}
 			
 			if (iterator.hasNext()) {
