@@ -1,8 +1,7 @@
 package com.tavo5691.util.karateschema.generator;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -14,7 +13,7 @@ import com.google.common.base.CaseFormat;
 public class Application {
 	
 	// The list of schemas to be returned
-	private static List<String> schemaList = new ArrayList<>();
+	private static Set<String> schemaList = new LinkedHashSet<>();
 
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
@@ -32,6 +31,7 @@ public class Application {
 		//String input = "{ \"meta\": { \"method\": \"GET\", \"operation\": \"v1/pom/loans/I00124100212/details\", \"paging\": null }, \"data\": { \"operational_product\": null, \"bank_sales_product\": { \"bank_sales_product_id\": \"LHEHBC\", \"bank_sales_product_description\": \"LET HIPOTEC\", \"bank_sales_product_version\": null }, \"commitment_capital\": { \"value\": 370000, \"currency_code\": \"NN\", \"currency_code_list_id\": \"MONEDA\", \"currency_code_list_agency_id\": \"007\" }, \"dates\": { \"start_of_term\": 1337655600000, \"date_of_creation\": 1337655600000, \"end_of_term\": 1653274800000 }, \"sales_concept\": \"\", \"contract_manager\": { \"id\": \"241\" }, \"amortization_system\": { \"amortization_system_code\": { \"value\": \"NN\", \"list_id\": null, \"list_agency_id\": null }, \"amortization_system_description\": \"FRANCES DIAS PERIODO =30,41666\" }}, \"errors\": [] }";
 		//String input = "{ \"meta\": { \"method\": \"PUT\", \"operation\": \"v1/pom/loans/holding/sarasa\", \"paging\": null }, \"data\": [ { \"loan_contract_account_identification\": { \"backend_id\": null, \"bank_country\": \"AR\", \"bank_key\": \"90000007\", \"account_number\": \"sarasa\" }, \"installment_number\": 0, \"due_date\": null } ], \"errors\": [] }";
 		//String input = "{ \"meta\": { \"method\": \"GET\", \"operation\": \"v1/pom/loans/I00124100212/details\", \"paging\": null }, \"data\": [ { \"operational_product\": null, \"bank_sales_product\": { \"bank_sales_product_id\": \"LHEHBC\", \"bank_sales_product_description\": \"LET HIPOTEC\", \"bank_sales_product_version\": null }, \"commitment_capital\": { \"value\": 370000, \"currency_code\": \"NN\", \"currency_code_list_id\": \"MONEDA\", \"currency_code_list_agency_id\": \"007\" }, \"dates\": { \"start_of_term\": 1337655600000, \"date_of_creation\": 1337655600000, \"end_of_term\": 1653274800000 }, \"sales_concept\": \"\", \"contract_manager\": { \"id\": \"241\" }, \"amortization_system\": { \"amortization_system_code\": { \"value\": \"NN\", \"list_id\": null, \"list_agency_id\": null }, \"amortization_system_description\": \"FRANCES DIAS PERIODO =30,41666\" }, \"use_of_founds\": { \"use_of_founds_code\": { \"value\": \"VIV\", \"list_id\": null, \"list_agency_id\": null }, \"use_of_founds_description\": \"COMPRA VIVIENDA UNICA\" }, \"debit_account\": { \"product\": { \"product_id\": null, \"currency\": { \"value\": \"01\", \"list_id\": \"MONEDA\", \"list_agency_id\": \"007\" }, \"nvproduct_id\": { \"subsystem_id\": 2, \"product_id\": \"CA\", \"sub_product_id\": \"GE\", \"modifier_id\": \"01\", \"sector_id\": \"T\" } }, \"account_identification\": { \"backend_id\": null, \"bank_country\": \"AR\", \"bank_key\": \"AR\", \"account_number\": \"241540107816\" } }, \"contract_status_code\": \"NN\", \"collateral_condition\": { \"collateral_condition_code\": { \"value\": \"LHI\", \"list_id\": \"GARANTIA\", \"list_agency_id\": \"310\" }, \"collateral_condition_description\": \"LET-HIP.S/MISMO INMUEBLE (P/VIV.PROPIA)\" }, \"interest_rate_type\": \"Vencida\", \"life_insurance\": { \"life_insurance_code\": { \"value\": \"NN\", \"list_id\": \"SEGURO VIDA\", \"list_agency_id\": \"310\" }, \"life_insurance_description\": \"VENCIDO COBRA DESDE EL 1ER VTO.\" }, \"goods_insurance\": { \"goods_insurance_code\": null, \"goods_insurance_description\": \"SEGURO DE GARANTIA (PREDEFINIDA)\" }, \"commission\": { \"commission_code\": { \"value\": \"NN\", \"list_id\": \"COMISION\", \"list_agency_id\": \"310\" }, \"commission_description\": \"ADELANTADA (COMIS.FIJA Y UNICA)\" }, \"credit_account\": { \"product\": { \"product_id\": null, \"currency\": { \"value\": \"01\", \"list_id\": \"MONEDA\", \"list_agency_id\": \"007\" }, \"nvproduct_id\": { \"subsystem_id\": null, \"product_id\": null, \"sub_product_id\": \"GE\", \"modifier_id\": null, \"sector_id\": \"T\" } }, \"account_identification\": { \"backend_id\": null, \"bank_country\": \"AR\", \"bank_key\": \"90000007\", \"account_number\": \"\" } }, \"amount_accredit\": { \"value\": 0, \"currency_code\": \"NN\", \"currency_code_list_id\": \"MONEDA\", \"currency_code_list_agency_id\": \"007\" }, \"number_of_installments\": { \"number_of_installments\": \"120 MESES\", \"total_number_of_installments\": 120, \"number_of_installments_outstanding\": 120 }, \"interest_rate_value\": 18, \"ref_interest_rate_value\": null, \"index_type\": null, \"calculate_type\": \"Simple\" } ], \"errors\": [] }";
+		//String input = "{ \"meta\": { \"method\": \"GET\", \"operation\": \"v1/pom/loans/I00124100212/details\", \"paging\": null }, \"data\": { \"operational_product\": null, \"bank_sales_product\": { \"contract_manager\": { \"id\": \"241\" }, \"bank_sales_product_id\": \"LHEHBC\", \"bank_sales_product_description\": \"LET HIPOTEC\", \"bank_sales_product_version\": null }, \"commitment_capital\": { \"value\": 370000, \"currency_code\": \"NN\", \"currency_code_list_id\": \"MONEDA\", \"currency_code_list_agency_id\": \"007\" }, \"dates\": { \"start_of_term\": 1337655600000, \"date_of_creation\": 1337655600000, \"end_of_term\": 1653274800000 }, \"sales_concept\": \"\", \"contract_manager\": { \"id\": \"241\" }, \"amortization_system\": { \"amortization_system_code\": { \"value\": \"NN\", \"list_id\": null, \"list_agency_id\": null }, \"amortization_system_description\": \"FRANCES DIAS PERIODO =30,41666\" }}, \"errors\": [] }";
 		
 		JSONObject inputJson = new JSONObject(input);
 		StringBuilder sb = new StringBuilder();
@@ -52,7 +52,7 @@ public class Application {
 				
 				sb.append(String.format(ConstantValues.Key.KEY, inputKey));
 				sb.append(String.format(ConstantValues.Value.MATCH_OBJECT_FORMAT, inputSchemaName));
-				schemaList.add(0, String.format(ConstantValues.Value.SCHEMA_FORMAT, inputSchemaName, schema));
+				schemaList.add(String.format(ConstantValues.Value.SCHEMA_FORMAT, inputSchemaName, schema));
 			} else if (inputJson.get(inputKey) instanceof JSONArray) {
 				JSONArray currentArray = inputJson.getJSONArray(inputKey);
 				sb.append(String.format(ConstantValues.Key.KEY, inputKey));
@@ -62,7 +62,7 @@ public class Application {
 					String schema = getSchema(firstObject);
 					
 					sb.append(String.format(ConstantValues.Value.MATCH_ARRAY_FORMAT, inputSchemaName));
-					schemaList.add(0, String.format(ConstantValues.Value.SCHEMA_FORMAT, inputSchemaName, schema));
+					schemaList.add(String.format(ConstantValues.Value.SCHEMA_FORMAT, inputSchemaName, schema));
 				} else {
 					sb.append(ConstantValues.Value.MATCH_EMPTY_ARRAY);
 				}
@@ -75,7 +75,7 @@ public class Application {
 		
 		sb.append(" }");
 		String responseSchema = sb.toString();
-		schemaList.add(0, responseSchema);
+		schemaList.add(responseSchema);
 		
 		printOutput();
 	}
@@ -123,7 +123,7 @@ public class Application {
 					String schema = getSchema(firstObject);
 					
 					sb.append(String.format(ConstantValues.Value.MATCH_ARRAY_FORMAT, schemaName));
-					schemaList.add(0, String.format(ConstantValues.Value.SCHEMA_FORMAT, schemaName, schema));
+					schemaList.add(String.format(ConstantValues.Value.SCHEMA_FORMAT, schemaName, schema));
 				} else {
 					sb.append(ConstantValues.Value.MATCH_EMPTY_ARRAY);
 				}
