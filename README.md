@@ -15,4 +15,6 @@ This app generates JSON Schemas based on an input JSON for use in Karate integra
   <code>cd target/</code>
   <li>Execute the jar file using:</li>
   <code>java -jar karate-schema-utils-1.x.x-SNAPSHOT.jar</code>
+  <li>Minify the JSON to be processed using any tool you want</li>
+  <code>Recommended: https://codebeautify.org/jsonminifier</code>
 </ul>
