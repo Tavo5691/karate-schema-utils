@@ -18,3 +18,14 @@ This app generates JSON Schemas based on an input JSON for use in Karate integra
   <li>Minify the JSON to be processed using any tool you want</li>
   <code>Recommended: https://codebeautify.org/jsonminifier</code>
 </ul>
+
+## Example Input
+
+<code>{"meta":[{"operation":"string","url":"string","paging":0}],"data":[{"name":"string","age":0,"id":"string","pets":[{"name":"string","age":0},{"name":"string","age":0}]}],"errors":[]}</code>
+
+## Example Output
+
+* def petsSchema = { name: '#string', age: '#number' }
+* def dataSchema = { pets: '#[] (petsSchema)', name: '#string', id: '#string', age: '#number' }
+* def metaSchema = { paging: '#number', operation: '#string', url: '#string' }
+* def microserviceResponseSchema = { data: '#[] (dataSchema)', meta: '#[] (metaSchema)', errors: [] }
